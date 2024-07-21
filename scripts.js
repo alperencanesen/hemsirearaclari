@@ -194,14 +194,7 @@ function hesaplaFluidBalance() {
     }
 }
 
-function degerlendirPainScale() {
-    const painLevel = parseInt(document.getElementById('painLevel').value);
-    if (!isNaN(painLevel) && painLevel >= 0 && painLevel <= 10) {
-        document.getElementById('painScaleResult').innerText = `Ağrı Seviyesi: ${painLevel}`;
-    } else {
-        document.getElementById('painScaleResult').innerText = "Lütfen 0 ile 10 arasında bir değer giriniz.";
-    }
-}
+
 
 // Modal dışında tıklama ile kapatma
 window.onclick = function(event) {

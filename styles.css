@@ -70,6 +70,7 @@ button:hover {
     width: 80%;
     max-width: 600px;
     color: #FFFFFF; /* Beyaz metin */
+    box-sizing: border-box; /* İç ve dış kenar boşlukları dahil */
 }
 
 .close {
@@ -86,11 +87,11 @@ button:hover {
     cursor: pointer;
 }
 
-input[type="number"] {
-    width: 100%;
+input[type="number"], input[type="date"], textarea {
+    width: 100%; /* Genişlik yüzde olarak ayarlandı */
     padding: 10px;
-    margin: 5px 0;
-    box-sizing: border-box;
+    margin: 8px 0;
+    box-sizing: border-box; /* İç ve dış kenar boşlukları dahil */
     border: 1px solid #555555;
     border-radius: 5px;
     background-color: #444444; /* Koyu gri giriş alanı arka planı */

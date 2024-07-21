@@ -11,6 +11,14 @@ function showTool(toolId) {
             <button onclick="hesaplaDoz()">Hesapla</button>
             <p id="sonuc"></p>
         `);
+    } else if (toolId === 'tahminiDogum') {
+        openModal(`
+            <h2>Tahmini Doğum Tarihi Hesaplayıcı</h2>
+            <label for="sonAdet">Son Adet Tarihi:</label>
+            <input type="date" id="sonAdet" name="sonAdet"><br><br>
+            <button onclick="hesaplaDogum()">Hesapla</button>
+            <p id="dogumSonuc"></p>
+        `);
     } else {
         alert(`${toolId} aracı açılıyor.`);
     }
@@ -36,6 +44,23 @@ function hesaplaDoz() {
     } else {
         document.getElementById('sonuc').innerText = "Lütfen geçerli değerler giriniz.";
     }
+}
+
+function hesaplaDogum() {
+    const sonAdet = new Date(document.getElementById('sonAdet').value);
+    if (isNaN(sonAdet.getTime())) {
+        document.getElementById('dogumSonuc').innerText = "Lütfen geçerli bir tarih giriniz.";
+        return;
+    }
+    const dogumTarihi = new Date(sonAdet);
+    dogumTarihi.setMonth(dogumTarihi.getMonth() - 3);
+    dogumTarihi.setDate(dogumTarihi.getDate() + 7);
+
+    const dogumGun = dogumTarihi.getDate().toString().padStart(2, '0');
+    const dogumAy = (dogumTarihi.getMonth() + 1).toString().padStart(2, '0');
+    const dogumYil = dogumTarihi.getFullYear();
+
+    document.getElementById('dogumSonuc').innerText = `Tahmini Doğum Tarihi: ${dogumGun}/${dogumAy}/${dogumYil}`;
 }
 
 // Modal dışında tıklama ile kapatma

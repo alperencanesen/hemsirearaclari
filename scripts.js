@@ -154,10 +154,10 @@ async function gonderOpenAI() {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "gpt-4",
+                model: "gpt-4o",
                 messages: messages,
-                max_tokens: 2000,
-                temperature: 0.7
+                max_tokens: 4096,
+                temperature: 0.1
             })
         });
 

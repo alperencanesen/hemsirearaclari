@@ -45,7 +45,7 @@ function showTool(toolId) {
         openModal(`
             <h2>Hemşirelik Tanısı Yardım Programı</h2>
             <label for="hastaBilgi">Hasta Hikayesi ve Bilgileri:</label>
-            <textarea id="hastaBilgi" name="hastaBilgi" rows="10" style="width: 95%;" placeholder="Lütfen hastanın kimlik bilgilerini yazmayınız, sadece gerekli olduğunu düşündüğünüz hasta/hastalık ilişkili bilgilere yer veriniz."></textarea><br><br>
+            <textarea id="hastaBilgi" name="hastaBilgi" rows="10" style="width: 100%;" placeholder="Lütfen hastanın kimlik bilgilerini yazmayınız, sadece gerekli olduğunu düşündüğünüz hasta/hastalık ilişkili bilgilere yer veriniz."></textarea><br><br>
             <button onclick="gonderOpenAI()">Gönder</button>
             <p id="hemsirelikSonuc"></p>
         `);

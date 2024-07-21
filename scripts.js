@@ -1,4 +1,4 @@
-const apiKey = 'sk-svcacct-IwnHxgn9YIdMAmlOwBGZT3BlbkFJPoUYn2Os7y9lYC98ES7H'; // Doğru OpenAI API anahtarını buraya ekleyin
+const apiKey = 'XXXXXXXXXXXXXXXXXX'; // Doğru OpenAI API anahtarını buraya ekleyin
 
 function showTool(toolId) {
     if (toolId === 'ilacDozu') {

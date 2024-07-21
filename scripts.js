@@ -1,4 +1,4 @@
-const apiKey = 'sk-proj-sk-svcacct-IwnHxgn9YIdMAmlOwBGZT3BlbkFJPoUYn2Os7y9lYC98ES7H'; // Your OpenAI API key
+const apiKey = 'sk-svcacct-IwnHxgn9YIdMAmlOwBGZT3BlbkFJPoUYn2Os7y9lYC98ES7H'; // Your OpenAI API key
 const assistantId = 'asst_wAT1GzpOybGgSlIfSwuoeJ1w';
 const vectorStorageId = 'vs_618wHakiycjwb0gT9hcoWywS';
 

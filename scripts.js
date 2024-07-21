@@ -1,6 +1,4 @@
-const apiKey = 'sk-svcacct-IwnHxgn9YIdMAmlOwBGZT3BlbkFJPoUYn2Os7y9lYC98ES7H'; // Your OpenAI API key
-const assistantId = 'asst_wAT1GzpOybGgSlIfSwuoeJ1w';
-const vectorStorageId = 'vs_618wHakiycjwb0gT9hcoWywS';
+const apiKey = 'sk-proj-Pu6o6YAaw8hGGTmv9RPUT3BlbkFJru3yJHYa5ILfPNUMnP9G'; // Doğru OpenAI API anahtarını buraya ekleyin
 
 function showTool(toolId) {
     if (toolId === 'ilacDozu') {
@@ -23,6 +21,26 @@ function showTool(toolId) {
             <button onclick="hesaplaDogum()">Hesapla</button>
             <p id="dogumSonuc"></p>
         `);
+    } else if (toolId === 'ivDripRate') {
+        openModal(`
+            <h2>Serum Damla Hızı Hesaplayıcı</h2>
+            <label for="totalVolume">Toplam Hacim (ml):</label>
+            <input type="number" id="totalVolume" name="totalVolume"><br><br>
+            <label for="infusionTime">İnfüzyon Süresi (dk):</label>
+            <input type="number" id="infusionTime" name="infusionTime"><br><br>
+            <button onclick="hesaplaIvDripRate()">Hesapla</button>
+            <p id="ivDripResult"></p>
+        `);
+    } else if (toolId === 'bmiCalculator') {
+        openModal(`
+            <h2>Vücut Kitle İndeksi Hesaplayıcı</h2>
+            <label for="weight">Kilo (kg):</label>
+            <input type="number" id="weight" name="weight"><br><br>
+            <label for="height">Boy (cm):</label>
+            <input type="number" id="height" name="height"><br><br>
+            <button onclick="hesaplaBMI()">Hesapla</button>
+            <p id="bmiResult"></p>
+        `);
     } else if (toolId === 'hemsirelikTanisi') {
         openModal(`
             <h2>Hemşirelik Tanısı Yardım Programı</h2>
@@ -30,6 +48,24 @@ function showTool(toolId) {
             <textarea id="hastaBilgi" name="hastaBilgi" rows="10" cols="50"></textarea><br><br>
             <button onclick="gonderOpenAI()">Gönder</button>
             <p id="hemsirelikSonuc"></p>
+        `);
+    } else if (toolId === 'fluidBalance') {
+        openModal(`
+            <h2>Sıvı Dengesi Tablosu</h2>
+            <label for="inputFluid">Aldığı Sıvı (ml):</label>
+            <input type="number" id="inputFluid" name="inputFluid"><br><br>
+            <label for="outputFluid">Çıkan Sıvı (ml):</label>
+            <input type="number" id="outputFluid" name="outputFluid"><br><br>
+            <button onclick="hesaplaFluidBalance()">Hesapla</button>
+            <p id="fluidBalanceResult"></p>
+        `);
+    } else if (toolId === 'painScale') {
+        openModal(`
+            <h2>Ağrı Değerlendirme Aracı</h2>
+            <label for="painLevel">Ağrı Seviyesi (0-10):</label>
+            <input type="number" id="painLevel" name="painLevel" min="0" max="10"><br><br>
+            <button onclick="degerlendirPainScale()">Değerlendir</button>
+            <p id="painScaleResult"></p>
         `);
     } else {
         alert(`${toolId} aracı açılıyor.`);
@@ -75,6 +111,28 @@ function hesaplaDogum() {
     document.getElementById('dogumSonuc').innerText = `Tahmini Doğum Tarihi: ${dogumGun}/${dogumAy}/${dogumYil}`;
 }
 
+function hesaplaIvDripRate() {
+    const totalVolume = parseFloat(document.getElementById('totalVolume').value);
+    const infusionTime = parseFloat(document.getElementById('infusionTime').value);
+    if (!isNaN(totalVolume) && !isNaN(infusionTime) && totalVolume > 0 && infusionTime > 0) {
+        const dripRate = (totalVolume / infusionTime).toFixed(2);
+        document.getElementById('ivDripResult').innerText = `Hesaplanan Damla Hızı: ${dripRate} ml/dk`;
+    } else {
+        document.getElementById('ivDripResult').innerText = "Lütfen geçerli değerler giriniz.";
+    }
+}
+
+function hesaplaBMI() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value) / 100;
+    if (!isNaN(weight) && !isNaN(height) && weight > 0 && height > 0) {
+        const bmi = (weight / (height * height)).toFixed(2);
+        document.getElementById('bmiResult').innerText = `Hesaplanan Vücut Kitle İndeksi: ${bmi}`;
+    } else {
+        document.getElementById('bmiResult').innerText = "Lütfen geçerli değerler giriniz.";
+    }
+}
+
 async function gonderOpenAI() {
     const hastaBilgi = document.getElementById('hastaBilgi').value;
     if (!hastaBilgi.trim()) {
@@ -104,10 +162,10 @@ async function gonderOpenAI() {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: "gpt-4o",
+                model: "gpt-4",
                 messages: messages,
-                max_tokens: 4096,
-                temperature: 0.01
+                max_tokens: 2000,
+                temperature: 0.7
             })
         });
 
@@ -125,6 +183,26 @@ async function gonderOpenAI() {
     }
 }
 
+function hesaplaFluidBalance() {
+    const inputFluid = parseFloat(document.getElementById('inputFluid').value);
+    const outputFluid = parseFloat(document.getElementById('outputFluid').value);
+    if (!isNaN(inputFluid) && !isNaN(outputFluid)) {
+        const fluidBalance = inputFluid - outputFluid;
+        document.getElementById('fluidBalanceResult').innerText = `Sıvı Dengesi: ${fluidBalance} ml`;
+    } else {
+        document.getElementById('fluidBalanceResult').innerText = "Lütfen geçerli değerler giriniz.";
+    }
+}
+
+function degerlendirPainScale() {
+    const painLevel = parseInt(document.getElementById('painLevel').value);
+    if (!isNaN(painLevel) && painLevel >= 0 && painLevel <= 10) {
+        document.getElementById('painScaleResult').innerText = `Ağrı Seviyesi: ${painLevel}`;
+    } else {
+        document.getElementById('painScaleResult').innerText = "Lütfen 0 ile 10 arasında bir değer giriniz.";
+    }
+}
+
 // Modal dışında tıklama ile kapatma
 window.onclick = function(event) {
     const modal = document.getElementById('modal');
@@ -133,11 +211,21 @@ window.onclick = function(event) {
     }
 }
 
-// Hemşirelik Tanılarını Getir Butonu
-function showNursingDiagnoses() {
-    openModal(`
-        <h2>Hemşirelik Tanıları</h2>
-        <button onclick="getNursingDiagnoses()">Tanıları Getir</button>
-        <p id="nursingDiagnoses"></p>
-    `);
+/* Yükleme Simgesi CSS */
+const style = document.createElement('style');
+style.innerHTML = `
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
 }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+`;
+document.head.appendChild(style);

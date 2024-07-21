@@ -59,14 +59,6 @@ function showTool(toolId) {
             <button onclick="hesaplaFluidBalance()">Hesapla</button>
             <p id="fluidBalanceResult"></p>
         `);
-    } else if (toolId === 'painScale') {
-        openModal(`
-            <h2>Ağrı Değerlendirme Aracı</h2>
-            <label for="painLevel">Ağrı Seviyesi (0-10):</label>
-            <input type="number" id="painLevel" name="painLevel" min="0" max="10"><br><br>
-            <button onclick="degerlendirPainScale()">Değerlendir</button>
-            <p id="painScaleResult"></p>
-        `);
     } else {
         alert(`${toolId} aracı açılıyor.`);
     }

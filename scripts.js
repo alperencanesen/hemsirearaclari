@@ -24,13 +24,13 @@ function closeModal() {
 }
 
 function hesaplaDoz() {
-    const mevcutDoz = document.getElementById('mevcutDoz').value;
-    const gerekenDoz = document.getElementById('gerekenDoz').value;
-    if (mevcutDoz && gerekenDoz) {
+    const mevcutDoz = parseFloat(document.getElementById('mevcutDoz').value);
+    const gerekenDoz = parseFloat(document.getElementById('gerekenDoz').value);
+    if (!isNaN(mevcutDoz) && !isNaN(gerekenDoz) && mevcutDoz > 0) {
         const sonuc = (gerekenDoz / mevcutDoz).toFixed(2);
         document.getElementById('sonuc').innerText = `Hesaplanan Doz: ${sonuc} ml`;
     } else {
-        document.getElementById('sonuc').innerText = "Lütfen tüm değerleri giriniz.";
+        document.getElementById('sonuc').innerText = "Lütfen geçerli değerler giriniz.";
     }
 }
 

@@ -53,7 +53,7 @@ function hesaplaDogum() {
         return;
     }
     const dogumTarihi = new Date(sonAdet);
-    dogumTarihi.setMonth(dogumTarihi.getMonth() - 3);
+    dogumTarihi.setMonth(dogumTarihi.getMonth() + 9);
     dogumTarihi.setDate(dogumTarihi.getDate() + 7);
 
     const dogumGun = dogumTarihi.getDate().toString().padStart(2, '0');
